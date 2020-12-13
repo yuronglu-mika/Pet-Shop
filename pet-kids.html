@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      /* div {
+        border: 1px solid red;
+      } */
+
+      /* navbar */
+      #menu_control {
+        position: absolute;
+        z-index: -2;
+        opacity: 0;
+      }
+      .header {
+        background-color: white;
+        position: relative;
+      }
+      .logo {
+        width: 110px;
+        height: 80px;
+        margin-left: 10px;
+      }
+      .logo a {
+        display: block;
+        height: 100px;
+      }
+      .logo img {
+        width: 100%;
+        /* height: 100%; */
+        object-fit: cover;
+        display: block;
+      }
+      .menu_btn {
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        display: block;
+        position: absolute;
+        top: 0px;
+        right: 10px;
+      }
+      .menu_btn span {
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+        display: block;
+        overflow: hidden;
+      }
+      .menu_btn::after {
+        content: "";
+        position: absolute;
+        height: 2px;
+        left: 5px;
+        width: 30px;
+        background-color: #aaa;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        box-shadow: 0px 8px 0px #aaa, 0px -8px 0px #aaa;
+      }
+      nav a {
+        display: block;
+        text-decoration: none;
+        color: rgb(128, 128, 128);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+      }
+      #menu_control:checked ~ .header nav {
+        left: 0;
+      }
+
+      @media screen and (max-width: 767px) {
+        .header {
+          height: 70px;
+        }
+        nav {
+          width: 65%;
+          height: 100vh;
+          background-color: #d8b58e;
+          position: absolute;
+          top: 70px;
+          left: -100%;
+          transition: 0.5s;
+        }
+        nav a {
+          color: rgb(100, 100, 100);
+          padding: 20px 25px;
+          /* border-bottom: 1px solid rgb(128, 128, 128); */
+        }
+        #border {
+          position: relative;
+          width: 125px;
+          left: 10px;
+          border-bottom: 1px solid #e7d1b9;
+        }
+        .sale-text {
+          color: rgb(255, 58, 101);
+          padding-left: 5px;
+        }
+        .logo {
+          width: 65px;
+          margin-left: 20px;
+          display: flex;
+          align-items: center;
+        }
+        .logo a {
+          display: block;
+          height: 65px;
+        }
+        .logo img {
+          width: 100%;
+          /* height: 100%; */
+          object-fit: cover;
+          display: block;
+        }
+      }
+      @media screen and (min-width: 768px) {
+        .menu_btn {
+          display: none;
+        }
+        .header {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          background-color: white;
+          align-items: center;
+          height: 160px;
+        }
+        nav {
+          position: relative;
+          left: 0;
+          display: flex;
+          width: auto;
+          height: auto;
+          top: 0;
+          background-color: transparent;
+        }
+        nav a {
+          border-bottom: none;
+        }
+        .sale-text {
+          display: none;
+        }
+        .navtext {
+          padding: 30px 60px 0 0;
+        }
+        .member {
+          padding: 30px 0 0 0;
+        }
+      }
+
+      img {
+        vertical-align: bottom;
+      }
+
+      .hot-sale {
+        background-color: snow;
+        padding-top: 25px;
+      }
+
+      .banner img {
+        width: 100%;
+      }
+
+      .food img {
+        width: 100%;
+      }
+
+      .footer {
+        background-color: #333;
+        color: #aaa;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .item-group {
+        width: 100%;
+        max-width: 1400px;
+        margin: auto;
+      }
+
+      .title {
+        margin: 0px 0px 5px;
+        padding: 30px 10px;
+      }
+
+      .title h3 {
+        text-align: center;
+        font-size: 36px;
+      }
+
+      .title h5 {
+        text-align: center;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+
+      .title p {
+        font-size: 18px;
+        text-align: center;
+      }
+
+      .item {
+        margin: 0 10px 40px;
+        text-align: center;
+      }
+
+      .item-f {
+        margin: 40px 10px 40px;
+        text-align: center;
+      }
+
+      .item .text h3 {
+        font-size: 20px;
+        margin-top: 20px;
+        color: rgb(70, 70, 70);
+        margin-bottom: 10px;
+      }
+
+      .item .text p {
+        font-size: 16px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        color: dimgray;
+      }
+
+      .item-f .text-f h3 {
+        font-size: 20px;
+        margin-top: 20px;
+        color: rgb(70, 70, 70);
+        margin-bottom: 10px;
+      }
+
+      .item-f .text-f p {
+        font-size: 16px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        color: dimgray;
+      }
+
+      .item .pic {
+        width: 100px;
+        height: 100px;
+      }
+
+      .item .pic img {
+        width: 100%;
+        border-radius: 50%;
+      }
+
+      .row {
+        /* width:100% ; */
+        display: flex;
+        justify-content: center;
+      }
+
+      .item-f .pic-f {
+        width: 300px;
+        height: 300px;
+      }
+      .item-f .pic-f img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      @media screen and (max-width: 767px) {
+        .item-f {
+          margin: 0px 0px 0px;
+        }
+        .item-f .pic-f {
+          margin: 0 auto;
+          margin-top: 30px;
+        }
+      }
+      @media screen and (min-width: 768px) {
+        .item-group {
+          display: flex;
+          justify-content: center;
+        }
+        .item {
+          margin-right: 70px;
+        }
+
+        .item .pic {
+          width: 220px;
+          height: 220px;
+        }
+
+        .row-f {
+          display: flex;
+          justify-content: space-around;
+          margin-top: 35px;
+        }
+
+        .item-f .pic-f img {
+          width: 280px;
+          height: 280px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- navbar -->
+    <input type="checkbox" name="" id="menu_control" />
+
+    <div class="header">
+      <h1 class="logo">
+        <a href=""> <img src="資料/logo/LOGO.png" alt="" /></a>
+      </h1>
+      <label for="menu_control" class="menu_btn">
+        <span>選單</span>
+      </label>
+      <nav>
+        <a href="#" id="border" class="navtext">熱賣商品</a>
+        <a href="#" id="border" class="navtext"
+          >本週優惠<span class="sale-text"> sale</span></a
+        >
+        <a href="#" id="border" class="navtext">找用的</a>
+        <a href="#" id="border" class="navtext">找吃的</a>
+        <a href="#" id="border" class="navtext">關於我們</a>
+        <a href="#" id="border" class="member">會員中心</a>
+      </nav>
+    </div>
+
+    <div class="banner">
+      <img src="img/image/01-1.jpg" alt="" />
+    </div>
+
+    <div class="hot-sale">
+      <div class="container">
+        <div class="title">
+          <h5>— Hot Sale Top.6 熱賣商品 —</h5>
+        </div>
+
+        <div class="row">
+          <div class="item">
+            <div class="pic">
+              <a href=""><img src="img/image/02.jpg" alt="" /></a>
+            </div>
+            <div class="text">
+              <h3>太空艙貓窩</h3>
+              <p>NT$1,980</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="pic">
+              <a href=""><img src="img/image/03.jpg" alt="" /></a>
+            </div>
+            <div class="text">
+              <h3>冥想汪床</h3>
+              <p>NT$980</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="pic">
+              <a href=""><img src="img/image/04.jpg" alt="" /></a>
+            </div>
+            <div class="text">
+              <h3>兔耳朵野餐後背包</h3>
+              <p>NT$1,250</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="item">
+            <div class="pic">
+              <a href=""><img src="img/image/05.jpg" alt="" /></a>
+            </div>
+            <div class="text">
+              <h3>寵物背包</h3>
+              <p>NT$1,590</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="pic">
+              <a href=""><img src="img/image/06.jpg" alt="" /></a>
+            </div>
+            <div class="text">
+              <h3>寵物推車</h3>
+              <p>NT$2,290</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="pic">
+              <a href=""><img src="img/image/07.jpg" alt="" /></a>
+            </div>
+            <div class="text">
+              <h3>仙人掌貓咪抓板爬架</h3>
+              <p>NT$3,200</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="food">
+      <div class="food-img">
+        <img src="img/image/08.jpg" alt="" />
+      </div>
+
+      <div class="row-f">
+        <div class="item-f">
+          <div class="pic-f">
+            <a href=""><img src="img/image/09.jpg" alt="" /></a>
+          </div>
+          <div class="text-f">
+            <h3>太空艙貓窩</h3>
+            <p>NT$1,980</p>
+          </div>
+        </div>
+
+        <div class="item-f">
+          <div class="pic-f">
+            <a href=""><img src="img/image/12.jpg" alt="" /></a>
+          </div>
+          <div class="text-f">
+            <h3>太空艙貓窩</h3>
+            <p>NT$1,980</p>
+          </div>
+        </div>
+
+        <div class="item-f">
+          <div class="pic-f">
+            <a href=""><img src="img/image/11.jpg" alt="" /></a>
+          </div>
+          <div class="text-f">
+            <h3>太空艙貓窩</h3>
+            <p>NT$1,980</p>
+          </div>
+        </div>
+
+        <div class="item-f">
+          <div class="pic-f">
+            <a href=""><img src="img/image/10.jpg" alt="" /></a>
+          </div>
+          <div class="text-f">
+            <h3>太空艙貓窩</h3>
+            <p>NT$1,980</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">&copy; copyright 2020 by YurongLu</div>
+  </body>
+</html>
